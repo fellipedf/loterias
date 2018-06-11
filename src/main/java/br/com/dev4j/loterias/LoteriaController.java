@@ -10,4 +10,10 @@ public class LoteriaController {
     public String index() {
         return "index";
     }
+
+
+    @RequestMapping("listasorteados")
+    public String listaSorteados() {
+        return "listasorteados";
+    }
 }
