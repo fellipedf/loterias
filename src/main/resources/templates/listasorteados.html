@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8"></meta>
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Resultados Anteriores</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-<h1>Lista de Números Sorteados</h1>
+<div class="container">
+    <div id="listaDeConvidados">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Concurso</th>
+                <th>Data Sorteio</th>
+                <th>Dez 1</th>
+                <th>Dez 2</th>
+                <th>Dez 3</th>
+                <th>Dez 4</th>
+                <th>Dez 5</th>
+            </tr>
+            </thead>
+            <tr th:each="resultado : ${resultados}">
+                <td> <span th:text="${resultado.concurso}"></span> </td>
+                <td> <span th:text="${resultado.dtSorteio}"></span> </td>
+                <td> <span th:text="${resultado.dez1}"></span> </td>
+                <td> <span th:text="${resultado.dez2}"></span> </td>
+                <td> <span th:text="${resultado.dez3}"></span> </td>
+                <td> <span th:text="${resultado.dez4}"></span> </td>
+                <td> <span th:text="${resultado.dez5}"></span> </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
