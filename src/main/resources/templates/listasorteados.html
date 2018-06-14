@@ -11,23 +11,11 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Concurso</th>
-                <th>Data Sorteio</th>
-                <th>Dez 1</th>
-                <th>Dez 2</th>
-                <th>Dez 3</th>
-                <th>Dez 4</th>
-                <th>Dez 5</th>
+                <th>Dezenas</th>
             </tr>
             </thead>
-            <tr th:each="resultado : ${resultados}">
-                <td> <span th:text="${resultado.concurso}"></span> </td>
-                <td> <span th:text="${resultado.dtSorteio}"></span> </td>
-                <td> <span th:text="${resultado.dez1}"></span> </td>
-                <td> <span th:text="${resultado.dez2}"></span> </td>
-                <td> <span th:text="${resultado.dez3}"></span> </td>
-                <td> <span th:text="${resultado.dez4}"></span> </td>
-                <td> <span th:text="${resultado.dez5}"></span> </td>
+            <tr th:each="jogo : ${jogos}">
+                <td> <span th:text="${jogo.dezenas}"></span> </td>
             </tr>
         </table>
     </div>

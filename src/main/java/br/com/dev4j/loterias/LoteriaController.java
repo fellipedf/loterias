@@ -1,5 +1,7 @@
 package br.com.dev4j.loterias;
 
+import br.com.dev4j.loterias.model.Dezena;
+import br.com.dev4j.loterias.model.Jogo;
 import br.com.dev4j.loterias.model.SorteadosQuina;
 import br.com.dev4j.loterias.repository.SorteadosQuinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 @Controller
 public class LoteriaController {
 
     @Autowired
     private SorteadosQuinaRepository repository;
+
+    private List<Integer> possiveis;
+
+    private int[] sorte = new int[10];
+
+    private Jogo jogo;
 
     @RequestMapping("/")
     public String index() {
@@ -21,10 +34,45 @@ public class LoteriaController {
 
     @RequestMapping("listasorteados")
     public String listaSorteados(Model model) {
-
-        Iterable<SorteadosQuina> resultados = repository.findAll();
-        model.addAttribute("resultados", resultados);
-
+        carregarNumeros();
+        List<Jogo> jogos = prepararJogos();
+        System.out.println(jogos);
+        // Iterable<SorteadosQuina> resultados = repository.findAll();
+        model.addAttribute("jogos", jogos);
         return "listasorteados";
+    }
+
+    public void carregarNumeros() {
+        possiveis = new ArrayList<>();
+        //Inclui os 80 números possíveis
+        for (int i = 1; i <= 80; i++) {
+            possiveis.add(i);
+        }
+    }
+
+
+    public List<Jogo> prepararJogos() {
+        List<Jogo> jogosList = new ArrayList<>();
+        while (possiveis.size() > 0) {
+            jogo = new Jogo();
+            int contPar = 0;
+            int contImpar = 0;
+            while (jogo.getDezenas().size() < 9) {
+                Dezena dezena = new Dezena();
+                int rand = new Random().nextInt(possiveis.size());
+
+                if (rand % 2 == 0 && contPar < 4) {
+                    dezena.setNumero(possiveis.get(rand));
+                    jogo.getDezenas().add(dezena);
+                    possiveis.remove(rand);
+                    contPar++;
+                } else {
+
+                }
+
+            }
+            jogosList.add(jogo);
+        }
+        return jogosList;
     }
 }
