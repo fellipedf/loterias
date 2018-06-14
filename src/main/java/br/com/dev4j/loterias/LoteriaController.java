@@ -2,7 +2,6 @@ package br.com.dev4j.loterias;
 
 import br.com.dev4j.loterias.model.Dezena;
 import br.com.dev4j.loterias.model.Jogo;
-import br.com.dev4j.loterias.model.SorteadosQuina;
 import br.com.dev4j.loterias.repository.SorteadosQuinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -57,7 +55,7 @@ public class LoteriaController {
             jogo = new Jogo();
             int contPar = 0;
             int contImpar = 0;
-            while (jogo.getDezenas().size() < 9) {
+            while (jogo.getDezenas().size() != 8) {
                 Dezena dezena = new Dezena();
                 int rand = new Random().nextInt(possiveis.size());
 
@@ -66,8 +64,11 @@ public class LoteriaController {
                     jogo.getDezenas().add(dezena);
                     possiveis.remove(rand);
                     contPar++;
-                } else {
-
+                } else if (rand % 2 == 1 && contImpar < 4) {
+                    dezena.setNumero(possiveis.get(rand));
+                    jogo.getDezenas().add(dezena);
+                    possiveis.remove(rand);
+                    contImpar++;
                 }
 
             }
