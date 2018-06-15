@@ -24,6 +24,8 @@ public class LoteriaController {
 
     private Jogo jogo;
 
+    private List<Jogo> jogos;
+
     @RequestMapping("/")
     public String index() {
         return "index";
@@ -33,9 +35,7 @@ public class LoteriaController {
     @RequestMapping("listasorteados")
     public String listaSorteados(Model model) {
         carregarNumeros();
-        List<Jogo> jogos = prepararJogos();
-        System.out.println(jogos);
-        // Iterable<SorteadosQuina> resultados = repository.findAll();
+        prepararJogos();
         model.addAttribute("jogos", jogos);
         return "listasorteados";
     }
@@ -49,8 +49,8 @@ public class LoteriaController {
     }
 
 
-    public List<Jogo> prepararJogos() {
-        List<Jogo> jogosList = new ArrayList<>();
+    public void prepararJogos() {
+        jogos = new ArrayList<>();
         while (possiveis.size() > 0) {
             jogo = new Jogo();
             int contPar = 0;
@@ -59,12 +59,12 @@ public class LoteriaController {
                 Dezena dezena = new Dezena();
                 int rand = new Random().nextInt(possiveis.size());
 
-                if (rand % 2 == 0 && contPar < 4) {
+                if (possiveis.get(rand) % 2 == 0 && contPar < 4) {
                     dezena.setNumero(possiveis.get(rand));
                     jogo.getDezenas().add(dezena);
                     possiveis.remove(rand);
                     contPar++;
-                } else if (rand % 2 == 1 && contImpar < 4) {
+                } else if (possiveis.get(rand) % 2 == 1 && contImpar < 4) {
                     dezena.setNumero(possiveis.get(rand));
                     jogo.getDezenas().add(dezena);
                     possiveis.remove(rand);
@@ -72,8 +72,7 @@ public class LoteriaController {
                 }
 
             }
-            jogosList.add(jogo);
+            jogos.add(jogo);
         }
-        return jogosList;
     }
 }
