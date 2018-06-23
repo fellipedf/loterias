@@ -26,7 +26,7 @@ public class LoteriaController {
 
     private List<Jogo> jogos;
 
-    @RequestMapping("/")
+    @RequestMapping("index")
     public String index() {
         return "index";
     }

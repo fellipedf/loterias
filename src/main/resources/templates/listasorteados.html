@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Resultados Anteriores</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Jogos gerados</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
+
 <div class="container">
     <div id="listaDeConvidados">
         <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Dezenas</th>
+            <thead >
+            <tr align="center">
+                <th>10 Jogos de 8 números</th>
             </tr>
             </thead>
-            <tr th:each="jogo : ${jogos}">
-                <td> <span th:text="${jogo.dezenas}"></span> </td>
+            <tr th:each="jogo : ${jogos}" align="center">
+                <td><span th:text="${jogo.dezenas}"></span></td>
             </tr>
         </table>
     </div>
     <div align="center">
         <a href="listasorteados" class="btn btn-lg btn-primary">Gerar novos números</a>
+        <br/>
+    </div>
+    <div class="row">
+        <div align="center">
+            <form th:action="@{/logout}" method="post">
+                <input class="btn btn-secondary btn-sm" type="submit" value="Sair"/>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
